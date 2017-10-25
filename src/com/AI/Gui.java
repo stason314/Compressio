@@ -15,6 +15,7 @@ public class Gui {
     private JTextArea probabilitiesTextField;
     private JTextArea questionsTextField;
     public JPanel panel;
+    private JTextArea authorField;
     private JFileChooser fileChooser;
     private String fileName;
 
@@ -32,12 +33,24 @@ public class Gui {
                     file = fileChooser.getSelectedFile();
                     if(fileChooser.isFileSelectionEnabled())
                         fileName = file.getPath();
-                    parser = new Parser(fileName);
-                    for (String temp : parser.stringList)
-                        questionsTextField.append(temp + "\n");
+                   appends();
+
                     System.out.println(fileName);
                 }
             }
         });
+    }
+
+
+    private void appends(){
+        parser = new Parser(fileName);
+        for (String temp : parser.stringList){
+            authorField.append(temp + "\n");
+            if (temp.equals("")){
+                break;
+            }
+
+
+        }
     }
 }
