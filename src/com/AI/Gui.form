@@ -85,7 +85,9 @@
         <children>
           <component id="d0395" class="javax.swing.JTextArea" binding="authorField">
             <constraints/>
-            <properties/>
+            <properties>
+              <wrapStyleWord value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

@@ -3,6 +3,8 @@ package com.AI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 /**
@@ -39,18 +41,35 @@ public class Gui {
                 }
             }
         });
+        authorField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                e.consume();
+            }
+        });
+        probabilitiesTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                e.consume();
+            }
+        });
+        questionsTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                e.consume();
+            }
+        });
     }
 
 
-    private void appends(){
+    private void appends() {
         parser = new Parser(fileName);
-        for (String temp : parser.stringList){
-            authorField.append(temp + "\n");
-            if (temp.equals("")){
-                break;
-            }
 
+        authorField.append(parser.authors);
+        questionsTextField.append(parser.questions);
 
-        }
     }
 }

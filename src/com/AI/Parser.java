@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -12,7 +13,11 @@ import java.util.List;
 public class Parser {
 
     public List<String> stringList;
+    private  Iterator<String> iterator ;
     private String str = "";
+    public String questions;
+    public String authors;
+    private String aqp[];
 
     public Parser(String fileName) {
         try {
@@ -20,9 +25,19 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        iterator = stringList.iterator();
         for (String temp: stringList){
+            if (temp.equals("")){
+                str += "/r";
+            }
             str += temp + "\n";
+
         }
-        System.out.println(str );
+        aqp = str.split("/r");
+        authors = aqp[0];
+        questions = aqp[1];
+
+
+        System.out.println(questions );
     }
 }
