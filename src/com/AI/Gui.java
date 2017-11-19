@@ -70,6 +70,7 @@ public class Gui {
 
         authorField.append(parser.authors);
         questionsTextField.append(parser.questions);
+        probabilitiesTextField.append(parser.probability);
 
     }
 }

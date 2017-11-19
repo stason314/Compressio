@@ -17,6 +17,7 @@ public class Parser {
     private String str = "";
     public String questions;
     public String authors;
+    public String probability;
     private String aqp[];
 
     public Parser(String fileName) {
@@ -36,7 +37,7 @@ public class Parser {
         aqp = str.split("/r");
         authors = aqp[0];
         questions = aqp[1];
-
+        probability = aqp[2];
 
         System.out.println(questions );
     }
