@@ -49,9 +49,11 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="33941" class="javax.swing.JTextArea" binding="probabilitiesTextField">
+          <component id="33941" class="javax.swing.JTextArea" binding="questionsTextField">
             <constraints/>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </scrollpane>
@@ -70,9 +72,11 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="1f9ca" class="javax.swing.JTextArea" binding="questionsTextField">
+          <component id="1f9ca" class="javax.swing.JTextArea" binding="probabilitiesTextField">
             <constraints/>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </scrollpane>
@@ -86,6 +90,7 @@
           <component id="d0395" class="javax.swing.JTextArea" binding="authorField">
             <constraints/>
             <properties>
+              <text value=""/>
               <wrapStyleWord value="false"/>
             </properties>
           </component>

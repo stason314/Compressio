@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class Parser {
 
-    public List<String> stringList;
+    private List<String> stringList;
     private  Iterator<String> iterator ;
     private String str = "";
     public String questions;
     public String authors;
-    public String probability;
+    public Result[] probability;
     private String aqp[];
 
     public Parser(String fileName) {
@@ -37,13 +37,13 @@ public class Parser {
         aqp = str.split("/r");
         authors = aqp[0];
         questions = aqp[1];
-        probability = aqp[2];
+        probability = parseResults(aqp[2]);
 
-        parseResults(probability);
+
     }
 
 
-    public Result[] parseResults(String res){
+    private Result[] parseResults(String res){
         String[] prob = res.split("\n");
         Result[] results = new Result[prob.length];
         for (int i = 0; i < results.length; i++){
@@ -52,6 +52,7 @@ public class Parser {
             String[] temps = prob[i].split(",");
             results[i].name = temps[0];
             results[i].pConst = Float.parseFloat(temps[1]);
+            results[i].pCurrent = results[i].pConst;
             for (int j = 2; j < temps.length; j++){
                 j++;
                 float pPlus = Float.parseFloat(temps[j]);

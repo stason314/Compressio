@@ -14,12 +14,13 @@ public class Gui {
     private JButton openFileButton;
     private JButton replyButton;
     private JTextField relpyField;
-    private JTextArea probabilitiesTextField;
     private JTextArea questionsTextField;
+    private JTextArea probabilitiesTextField;
     public JPanel panel;
     private JTextArea authorField;
     private JFileChooser fileChooser;
     private String fileName;
+    private String[] questions;
 
     public File file;
 
@@ -48,13 +49,6 @@ public class Gui {
                 e.consume();
             }
         });
-        probabilitiesTextField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-                e.consume();
-            }
-        });
         questionsTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -62,15 +56,33 @@ public class Gui {
                 e.consume();
             }
         });
+        probabilitiesTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                e.consume();
+            }
+        });
+        replyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reload();
+            }
+        });
     }
 
 
     private void appends() {
         parser = new Parser(fileName);
+        questions = parser.questions.split("\n");
 
         authorField.append(parser.authors);
-        questionsTextField.append(parser.questions);
-        probabilitiesTextField.append(parser.probability);
+        probabilitiesTextField.append(parser.probability[0].name + "[" + parser.probability[0].pCurrent + "]");
+        questionsTextField.append(questions[1]);
 
+    }
+    private void reload(){
+        probabilitiesTextField.setText("");
+        questionsTextField.setText("");
     }
 }
