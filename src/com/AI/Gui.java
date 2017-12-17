@@ -19,12 +19,13 @@ public class Gui {
     public JPanel panel;
     private JTextArea authorField;
     private JFileChooser fileChooser;
+
     private String fileName;
-    private String[] questions;
-
     public File file;
-
     Parser parser;
+    int num = 1;
+    private String[] questions;
+    int ques = 0;
 
     public Gui() {
         openFileButton.addActionListener(new ActionListener() {
@@ -63,10 +64,47 @@ public class Gui {
                 e.consume();
             }
         });
+
         replyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                reload();
+                int answer = Integer.parseInt(relpyField.getText());
+                num++;
+                probabilitiesTextField.setText("");
+                if (answer == 5){
+                    for (int i = 0; i < parser.probability.length; i++){
+                        parser.probability[i].pCurrent = (parser.probability[i].questions.get(ques).pPlus * parser.probability[i].pCurrent) /
+                                ((parser.probability[i].questions.get(ques).pPlus * parser.probability[i].pCurrent) +
+                                (parser.probability[i].questions.get(ques).pMinus * (1 - parser.probability[i].pCurrent))) ;
+                    }
+                }
+                if (answer == -5){
+                    for (int i = 0; i < parser.probability.length; i++){
+                        parser.probability[i].pCurrent = ((1 - parser.probability[i].questions.get(ques).pPlus) * parser.probability[i].pCurrent) /
+                                (((1 - parser.probability[i].questions.get(ques).pPlus) * parser.probability[i].pCurrent) -
+                                        (parser.probability[i].questions.get(ques).pMinus * (1 - parser.probability[i].pCurrent))) ;
+                    }
+                }
+                if (answer == 0){
+                    for (int i = 0; i < parser.probability.length; i++){
+                        parser.probability[i].pCurrent = parser.probability[i].pCurrent;
+                    }
+                }
+                if (answer > -5 && answer < 0){
+                    for (int i = 0; i < parser.probability.length; i++){
+                        parser.probability[i].pCurrent = (((answer + 5) * (parser.probability[i].pCurrent - parser.probability[i].questions.get(ques).pMinus)) /
+                                5) + parser.probability[i].questions.get(ques).pMinus;
+                    }
+                }
+                if (answer > 0 && answer < 5){
+                    for (int i = 0; i < parser.probability.length; i++){
+                        parser.probability[i].pCurrent = (((answer) * (parser.probability[i].questions.get(ques).pPlus - parser.probability[i].pCurrent)) /
+                                5) + parser.probability[i].pCurrent;
+                    }
+                }
+                ques++;
+                printProbabilities();
+                printQuestion(num);
             }
         });
     }
@@ -77,12 +115,16 @@ public class Gui {
         questions = parser.questions.split("\n");
 
         authorField.append(parser.authors);
-        probabilitiesTextField.append(parser.probability[0].name + "[" + parser.probability[0].pCurrent + "]");
-        questionsTextField.append(questions[1]);
+        questionsTextField.append(questions[num]);
+
 
     }
-    private void reload(){
-        probabilitiesTextField.setText("");
-        questionsTextField.setText("");
+    private void printProbabilities(){
+        for (Result result: parser.probability){
+            probabilitiesTextField.append(result.name + "[" + result.pCurrent + "]" + "\n");
+        }
+    }
+    private void printQuestion(int q){
+        questionsTextField.setText(questions[q]);
     }
 }

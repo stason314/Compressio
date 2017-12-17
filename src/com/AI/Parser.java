@@ -13,7 +13,6 @@ import java.util.List;
 public class Parser {
 
     private List<String> stringList;
-    private  Iterator<String> iterator ;
     private String str = "";
     public String questions;
     public String authors;
@@ -26,7 +25,6 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        iterator = stringList.iterator();
         for (String temp: stringList){
             if (temp.equals("")){
                 str += "/r";
@@ -52,7 +50,7 @@ public class Parser {
             String[] temps = prob[i].split(",");
             results[i].name = temps[0];
             results[i].pConst = Float.parseFloat(temps[1]);
-            results[i].pCurrent = results[i].pConst;
+            results[i].pCurrent = Float.parseFloat(temps[1]);
             for (int j = 2; j < temps.length; j++){
                 j++;
                 float pPlus = Float.parseFloat(temps[j]);
