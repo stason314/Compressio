@@ -38,6 +38,7 @@ public class Gui {
                     if(fileChooser.isFileSelectionEnabled())
                         fileName = file.getPath();
                    appends();
+                    printProbabilities();
 
                     System.out.println(fileName);
                 }
